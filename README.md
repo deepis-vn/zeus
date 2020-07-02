@@ -1,3 +1,3 @@
-### Docker Compose collection.
+### Docker utility collection.
 
-Deepis Docker Utility warehouse.
+Deepis docker utilities warehouse.

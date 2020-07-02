@@ -1,0 +1,49 @@
+version: '2.3'
+
+services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=example
+    ports:
+      - "3306:3306"
+    networks:
+      database-network:
+        aliases:
+          - mysql
+    restart: always
+
+  keydb:
+    image: eqalpha/keydb
+    command: ["keydb-server", "--appendonly", "yes", "--protected-mode", "no"]
+    volumes:
+      - ${PWD}/keydb/data:/data
+      - ./config/keydb.conf:/etc/keydb/keydb.conf
+    ports:
+      - "6379:6379"
+    networks:
+      database-network:
+        aliases:
+          - keydb
+    restart: always
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    ports:
+      - "27017:27017"
+    volumes:
+      - ${PWD}/mongo/data:/data/db
+    networks:
+      database-network:
+        aliases:
+          - mongo
+    restart: always
+
+networks:
+  database-network:
+    external: true

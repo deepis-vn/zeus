@@ -1,2 +1,3 @@
-# compose
-Docker Compose file collection
+### Docker Compose collection.
+
+Deepis Docker Utility warehouse.
